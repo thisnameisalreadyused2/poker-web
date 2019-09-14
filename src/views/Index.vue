@@ -2,6 +2,10 @@
   <div id="index">
     <Logo></Logo>
 
+    <a-input class="reg__input" placeholder="Team name">
+      <a-icon slot="prefix" type="user" />
+    </a-input>
+
     <a-button class="index__btn"
       >Generate
       <a-icon type="link" />
@@ -31,6 +35,13 @@ export default {
   justify-content: center;
   align-items: center;
   zoom: 125%;
+
+  .reg__input {
+    width: 80%;
+    max-width: 40rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
 
   .index__btn {
     margin: 1rem;
