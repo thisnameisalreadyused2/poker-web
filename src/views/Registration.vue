@@ -2,11 +2,11 @@
   <div id="registration">
     <Logo></Logo>
 
-    <a-input class="reg__input" placeholder="Your name">
-      <a-icon slot="prefix" type="user" />
+    <a-input class="reg__input" placeholder="Your name" v-model="username">
+      <a-icon slot="prefix" type="user"/>
     </a-input>
 
-    <a-button class="reg__btn"> <a-icon type="team" />Join team </a-button>
+    <a-button class="reg__btn" @click="saveUserName"> <a-icon type="team"/>Join team </a-button>
   </div>
 </template>
 
@@ -17,6 +17,19 @@ export default {
   name: "Registration",
   components: {
     Logo
+  },
+  data () {
+    return {
+      token: this.$route.params.id,
+      username: "",
+    }
+  },
+  methods: {
+    saveUserName() {
+      console.log(this.username);
+      sessionStorage.setItem("username", this.username);
+      this.$router.push('/poker/' + this.token);
+    }
   }
 };
 </script>

@@ -22,6 +22,7 @@
     border-radius: 0.5rem;
   }
 
+  .selected,
   .card__box:hover {
     box-shadow: 1px 1px 20px #1890ff;
     color: #1890ff;
