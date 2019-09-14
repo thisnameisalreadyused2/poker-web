@@ -10,7 +10,6 @@
     <a-tag class="index__alert" color="orange">
       Link copied to clipboard
     </a-tag>
-
   </div>
 </template>
 
