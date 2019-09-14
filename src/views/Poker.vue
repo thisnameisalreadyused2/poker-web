@@ -96,9 +96,26 @@ export default {
     ];
     return {
       data,
-      columns
+      columns,
+      token: this.$route.params.id,
     };
-  }
+  },
+  sockets: {
+    connect: function() {
+      this.$socket.emit("newTeamMember", {
+        token: this.token,
+        username: sessionStorage.getItem("username")
+      })
+    },
+    needRegister() {
+      this.$router.push('/registration/' + this.token);
+    }
+  },
+  methods: {
+    generateToken() {
+      this.$socket.emit("requestToken");
+    }
+  },
 };
 </script>
 
