@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="card__list">
-      <Card v-for="number in numbers" v-bind:number="number"></Card>
+      <Card v-for="number in numbers"
+            v-bind:number="number"
+            v-bind:class="{ selected: isSelected(number) }"
+            @click.native="() => selectCard(number)">
+      </Card>
     </div>
   </div>
 
@@ -17,8 +21,17 @@
     },
     data() {
       return {
-        numbers: [1, 2, 3, 5, 8, 13, 21, 34, 55]
+        numbers: [1, 2, 3, 5, 8, 13, 21, 34, 55],
+        selectedNumber: null,
       };
+    },
+    methods: {
+      selectCard(number) {
+        this.selectedNumber = number;
+      },
+      isSelected(number) {
+        return this.selectedNumber === number;
+      }
     }
   };
 </script>
