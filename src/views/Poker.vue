@@ -1,5 +1,5 @@
 <template>
-  <div id="poker">
+    <div id="poker">
     <Logo></Logo>
 
     <a-tabs defaultActiveKey="1" class="tab__box">
@@ -32,12 +32,32 @@
           <a-icon type="profile"/>Result
         </span>
 
-        <a-table :columns="columns"
-                 :dataSource="data"
-                 :pagination="false"
-                 bordered
-        ></a-table>
+        <div class="poker__table">
+          <div class="poker__table-box">
+            <a-table :columns="columns"
+                     :dataSource="data"
+                     :pagination="false"
+                     bordered
+            ></a-table>
+          </div>
+        </div>
 
+        <pure-vue-chart class="poker__diagram"
+            :points="[{label: '1', value: 4},
+                      {label: '2', value: 7},
+                      {label: '3', value: 5},
+                      {label: '5', value: 4},
+                      {label: '8', value: 6},
+                      {label: '13', value: 10},
+                      {label: '21', value: 4},
+                      {label: '34', value: 7},
+                      {label: '55', value: 2}]"
+            :show-y-axis="false"
+            :show-x-axis="true"
+            :width="300"
+            :height="100"
+            :show-values="true"
+        />
       </a-tab-pane>
     </a-tabs>
 
@@ -47,6 +67,7 @@
 <script>
   import Logo from "../components/Logo";
   import CardList from "../components/cards/CardList";
+  import PureVueChart from 'pure-vue-chart';
 
   const columns = [{
     title: 'Name',
@@ -72,7 +93,8 @@ export default {
   name: "Poker",
   components: {
     Logo,
-    CardList
+    CardList,
+    PureVueChart,
   },
   data() {
     return {
@@ -116,6 +138,10 @@ export default {
     margin-top: 1rem;
   }
 
+  .poker__diagram{
+    margin-top: 4rem;
+  }
+
   @media only screen and (min-device-width: 360px){
     .story__text{
       min-width: 20rem;
@@ -125,6 +151,32 @@ export default {
   @media only screen and (min-device-width: 700px){
     .story__text{
       min-width: 40rem;
+    }
+
+    .poker__table{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .poker__table-box{
+      min-width: 30rem;
+    }
+
+    .poker__diagram{
+      zoom: 150%;
+    }
+  }
+
+  @media only screen and (min-device-width: 1000px){
+    .poker__table-box{
+      min-width: 40rem;
+    }
+  }
+
+  @media only screen and (min-device-width: 1500px){
+    .poker__table-box{
+      min-width: 50rem;
     }
   }
 </style>
