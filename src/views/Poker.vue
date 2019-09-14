@@ -23,6 +23,8 @@
           <a-icon type="appstore"/>Cards
         </span>
 
+        <UserStory></UserStory>
+
         <CardList></CardList>
 
       </a-tab-pane>
@@ -31,6 +33,8 @@
         <span slot="tab">
           <a-icon type="profile"/>Result
         </span>
+
+        <UserStory></UserStory>
 
         <div class="poker__table">
           <div class="poker__table-box">
@@ -68,6 +72,7 @@
   import Logo from "../components/Logo";
   import CardList from "../components/cards/CardList";
   import PureVueChart from 'pure-vue-chart';
+  import UserStory from "../components/UserStory";
 
   const columns = [{
     title: 'Name',
@@ -94,6 +99,7 @@ export default {
   components: {
     Logo,
     CardList,
+    UserStory,
     PureVueChart,
   },
   data() {
