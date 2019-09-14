@@ -37,7 +37,6 @@
     margin: 1rem;
     zoom: 200%;
     font-weight: bold;
-    //color: #cc0000;
   }
 
   .index__btn{
