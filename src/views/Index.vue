@@ -1,71 +1,65 @@
 <template>
-  <div class="index">
+  <div id="index">
+    <Logo></Logo>
 
-    <div class="index__logo">
-      Planning P<a-icon type="fire" theme="twoTone" twoToneColor="#cc0000" />ker
-    </div>
-
-    <a-button class="index__btn">
-      Generate
+    <a-button class="index__btn"
+      >Generate
       <a-icon type="qrcode"></a-icon>
     </a-button>
 
-    <p class="index__link">Ссылка скопирована в буфер обмена</p>
+    <a-tag class="index__alert" color="orange">
+      Link copied to clipboard
+    </a-tag>
 
-    <div class="index__qr">
-      QR
-    </div>
-
+    <div class="index__qr">QR</div>
   </div>
 </template>
 
 <script>
-  export default {
-      name: "index"
-  };
+import Logo from "../components/Logo";
+
+export default {
+  name: "index",
+  components: {
+    Logo
+  }
+};
 </script>
 
 <style lang="scss">
-  .index{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+#index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  zoom: 125%;
 
-  .index__logo{
-    margin: 1rem;
-    zoom: 200%;
-    font-weight: bold;
-    //color: #cc0000;
-  }
-
-  .index__btn{
+  .index__btn {
     margin: 1rem;
   }
 
-  .index__link{
+  .index__link {
     margin: 1rem;
   }
 
-  .index__qr{
+  .index__qr {
     width: 10rem;
     height: 10rem;
     background-color: #42b983;
   }
-  @media only screen and (min-device-width: 400px){
-    .index__logo{
+
+  .index__alert {
+    margin-bottom: 1rem;
+  }
+
+  @media only screen and (min-device-width: 400px) {
+    .index__logo {
       font-size: 1rem;
     }
 
-    .index__btn{
+    .index__btn {
       zoom: 150%;
     }
-
-    .index__link{
-      font-size: 1.5rem;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
   }
+}
 </style>
