@@ -2,7 +2,7 @@
   <div id="poker">
     <Logo></Logo>
 
-    <a-tabs defaultActiveKey="1" class="tab__box">
+    <a-tabs defaultActiveKey="2" :size="'large'" class="tab__box">
       <a-tab-pane key="1">
           <span slot="tab">
             <a-icon type="edit" />Story
@@ -32,11 +32,14 @@
           <a-icon type="profile"/>Result
         </span>
 
-        <a-table :columns="columns"
-                 :dataSource="data"
-                 :pagination="false"
-                 bordered
-        ></a-table>
+        <div class="table__box">
+          <a-table class="poker__table"
+                   :columns="columns"
+                   :dataSource="data"
+                   :pagination="false"
+                   bordered
+          ></a-table>
+        </div>
 
       </a-tab-pane>
     </a-tabs>
@@ -114,6 +117,15 @@ export default {
 
   .poker__btn{
     margin-top: 1rem;
+  }
+
+  .table__box {
+    display: flex;
+    justify-content: center;
+  }
+
+  .poker__table {
+    min-width: 30rem;
   }
 
   @media only screen and (min-device-width: 360px){
