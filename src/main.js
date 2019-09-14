@@ -8,10 +8,12 @@ import "ant-design-vue/dist/antd.css";
 Vue.config.productionTip = false;
 Vue.use(Antd);
 
-Vue.use(new VueSocketIO({
-  debug: true,
-  connection: "http://localhost:9999"
-}));
+Vue.use(
+  new VueSocketIO({
+    debug: true,
+    connection: "http://localhost:9999"
+  })
+);
 
 new Vue({
   router,
