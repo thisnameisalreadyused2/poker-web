@@ -4,14 +4,13 @@
 
     <a-button class="index__btn"
       >Generate
-      <a-icon type="qrcode"></a-icon>
+      <a-icon type="link" />
     </a-button>
 
     <a-tag class="index__alert" color="orange">
       Link copied to clipboard
     </a-tag>
 
-    <div class="index__qr">QR</div>
   </div>
 </template>
 
@@ -40,12 +39,6 @@ export default {
 
   .index__link {
     margin: 1rem;
-  }
-
-  .index__qr {
-    width: 10rem;
-    height: 10rem;
-    background-color: #42b983;
   }
 
   .index__alert {

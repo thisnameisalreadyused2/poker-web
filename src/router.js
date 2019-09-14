@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Index from "./views/Index";
 import Registration from "./views/Registration.vue";
-import Table from "./views/Table";
+import Poker from "./views/Poker";
 
 Vue.use(Router);
 
@@ -21,9 +21,9 @@ export default new Router({
       component: Registration
     },
     {
-      path: "/table",
-      name: "table",
-      component: Table
+      path: "/poker",
+      name: "poker",
+      component: Poker
     }
   ]
 });
