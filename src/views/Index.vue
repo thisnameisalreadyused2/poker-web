@@ -5,12 +5,12 @@
       Planning P<a-icon type="fire" theme="twoTone" twoToneColor="#cc0000" />ker
     </div>
 
-    <a-button class="index__btn">
+    <a-button class="index__btn" @click="generateToken">
       Generate
       <a-icon type="qrcode"></a-icon>
     </a-button>
 
-    <p class="index__link">Ссылка скопирована в буфер обмена</p>
+    <p class="index__link" v-if="isTokenGenerated">Ссылка скопирована в буфер обмена (нет)</p>
 
     <div class="index__qr">
       QR
@@ -21,7 +21,26 @@
 
 <script>
   export default {
-      name: "index"
+    name: "index",
+    data() {
+      return {
+        isTokenGenerated: false
+      }
+    },
+    sockets: {
+      connect: function () {
+        console.log("Socket connected");
+      },
+      receiveToken(data) {
+        this.isTokenGenerated = true;
+        console.log("Your team token: ", data.token);
+      }
+    },
+    methods: {
+      generateToken() {
+        this.$socket.emit('requestToken');
+      }
+    }
   };
 </script>
 
