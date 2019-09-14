@@ -18,6 +18,6 @@ export default new Router({
       path: "/registration",
       name: "registration",
       component: Registration
-    },
+    }
   ]
 });

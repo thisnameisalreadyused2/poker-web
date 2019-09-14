@@ -5,15 +5,15 @@
 </template>
 
 <script>
-    export default {
-        name: "Logo"
-    }
+export default {
+  name: "Logo"
+};
 </script>
 
 <style lang="scss">
-  #logo {
-    margin: 1rem;
-    zoom: 200%;
-    font-weight: bold;
-  }
+#logo {
+  margin: 1rem;
+  zoom: 200%;
+  font-weight: bold;
+}
 </style>
