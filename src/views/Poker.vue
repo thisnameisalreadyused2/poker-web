@@ -1,8 +1,8 @@
 <template>
-    <div id="poker">
+  <div id="poker">
     <Logo></Logo>
 
-    <a-tabs defaultActiveKey="1" class="tab__box">
+    <a-tabs defaultActiveKey="2" :size="'large'" class="tab__box">
       <a-tab-pane key="1">
           <span slot="tab">
             <a-icon type="edit" />Story
