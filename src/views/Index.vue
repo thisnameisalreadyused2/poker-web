@@ -7,14 +7,18 @@
       <a-icon type="link" />
     </a-button>
 
-    <a-tag class="index__alert" color="orange" v-if="isTokenGenerated">
-      Link copied to clipboard
-    </a-tag>
+    <a-input class="index__token" v-if="token" addonBefore="Team token:" :value="token">
+      <a-icon class="index__copy" slot="suffix" type="copy" @click="copyToClipboard"/>
+    </a-input>
+
+    <input type="hidden" id="generated-token" :value="token">
+
   </div>
 </template>
 
 <script>
 import Logo from "../components/Logo";
+import copy from 'copy-to-clipboard';
 
 export default {
   name: "index",
@@ -23,7 +27,7 @@ export default {
   },
   data() {
     return {
-      isTokenGenerated: false
+      token: null,
     };
   },
   sockets: {
@@ -31,14 +35,28 @@ export default {
       console.log("Socket connected");
     },
     receiveToken(data) {
-      this.isTokenGenerated = true;
-      console.log("Your team token: ", data.token);
+      this.token = data.token;
+      console.log("Your team token: ", this.token);
     }
   },
   methods: {
     generateToken() {
       this.$socket.emit("requestToken");
-    }
+    },
+    copyToClipboard() {
+      try {
+        copy(document.location.href + "poker/" + this.token);
+        this.success();
+      } catch (err) {
+        this.error();
+      }
+    },
+    success() {
+      this.$message.success('Link was copied to clipboard');
+    },
+    error() {
+      this.$message.error('Link wasn`t copied to clipboard');
+    },
   }
 };
 </script>
@@ -55,12 +73,14 @@ export default {
     margin: 1rem;
   }
 
-  .index__link {
-    margin: 1rem;
+  .index__copy:hover {
+    cursor: pointer;
+    color: #1890ff;
   }
 
-  .index__alert {
-    margin-bottom: 1rem;
+  .index__token {
+    width: 80%;
+    max-width: 50rem;
   }
 
   @media only screen and (min-device-width: 400px) {
