@@ -10,16 +10,11 @@
     export default {
       name: "UserStory",
       props: ["userStory"],
-      data() {
-        return {
-          userStory: null,
-        }
-      },
       sockets: {
         onChangeUserStory(data) {
           this.userStory = data.userStory;
         }
-      }
+      },
     }
 </script>
 
