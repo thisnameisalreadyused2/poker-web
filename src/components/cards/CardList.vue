@@ -23,15 +23,26 @@
       return {
         numbers: [1, 2, 3, 5, 8, 13, 21, 34, 55],
         selectedNumber: null,
+        token: this.$route.params.id,
       };
+    },
+    sockets: {
+      restartVoting() {
+        this.selectedNumber = null;
+      },
     },
     methods: {
       selectCard(number) {
         this.selectedNumber = number;
+        this.$socket.emit('newVote', {
+          token: this.token,
+          user: sessionStorage.getItem("username"),
+          vote: this.selectedNumber,
+        })
       },
       isSelected(number) {
         return this.selectedNumber === number;
-      }
+      },
     }
   };
 </script>

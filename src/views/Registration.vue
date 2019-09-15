@@ -29,6 +29,10 @@ export default {
       console.log(this.username);
       sessionStorage.setItem("username", this.username);
       this.$router.push('/poker/' + this.token);
+      this.$socket.emit("newTeamMember", {
+        token: this.token,
+        username: sessionStorage.getItem("username")
+      })
     }
   }
 };

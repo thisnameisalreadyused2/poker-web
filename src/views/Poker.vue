@@ -36,11 +36,12 @@
                  :dataSource="data"
                  :pagination="false"
                  bordered
+
         ></a-table>
 
       </a-tab-pane>
     </a-tabs>
-
+    <button @click="startNewVote">Start new</button>
   </div>
 </template>
 
@@ -58,15 +59,7 @@
     key: 'points',
   }];
 
-  const data = [{
-    key: '1',
-    name: 'John Brown',
-    points: 32,
-  }, {
-    key: '2',
-    name: 'Jim Green',
-    points: 42,
-  }];
+  const data = [];
 
 export default {
   name: "Poker",
@@ -90,15 +83,31 @@ export default {
     },
     needRegister() {
       this.$router.push('/registration/' + this.token);
-    }
+    },
+    voteEnded(data) {
+      this.data = data;
+    },
+    restartVoting() {
+      this.data = [];
+    },
   },
   methods: {
     generateToken() {
       this.$socket.emit("requestToken");
+    },
+    startNewVote() {
+      this.$socket.emit('onRestartVoting', {
+        token: this.token
+      });
+    },
+    addOrReplace(item) {
+      const i = this.data.findIndex(_item => _item.id === item.id);
+      if (i > -1) {
+        this.data = this.data.filter(user => user.id !== item.id);
+      } else this.data.push(item);
     }
   },
 };
-
 </script>
 
 <style lang="scss">
