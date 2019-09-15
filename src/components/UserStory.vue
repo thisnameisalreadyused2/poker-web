@@ -10,11 +10,6 @@
     export default {
       name: "UserStory",
       props: ["userStory"],
-      data() {
-        return {
-          userStory: null,
-        }
-      }
     }
 </script>
 
