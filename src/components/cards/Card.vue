@@ -1,5 +1,7 @@
 <template>
-  <div class="card__box">{{ number }}</div>
+  <Animated enter="fadeIn" leave="fadeOut" duration="2000" mode="out-in" appear>
+    <div class="card__box">{{ number }}</div>
+  </Animated>
 </template>
 
 <script>

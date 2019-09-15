@@ -7,9 +7,11 @@
       <a-icon type="link" />
     </a-button>
 
-    <a-input class="index__token" v-if="token" addonBefore="Team token:" :value="token">
-      <a-icon class="index__copy" slot="suffix" type="copy" @click="copyToClipboard"/>
-    </a-input>
+    <Animated enter="fadeIn" leave="fadeOut" duration="1000">
+      <a-input class="index__token" v-if="token" addonBefore="Team token:" :value="token">
+        <a-icon class="index__copy" slot="suffix" type="copy" @click="copyToClipboard"/>
+      </a-input>
+    </Animated>
 
     <input type="hidden" id="generated-token" :value="token">
 
