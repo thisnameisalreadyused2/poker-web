@@ -12,7 +12,6 @@ Vue.use(VueAnimated)
 
 Vue.use(
   new VueSocketIO({
-    debug: true,
     connection: "http://localhost:9999"
   })
 );
