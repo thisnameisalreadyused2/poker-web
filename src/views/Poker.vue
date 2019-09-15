@@ -2,17 +2,18 @@
   <div id="poker">
     <Logo></Logo>
 
-    <a-tabs defaultActiveKey="1" class="tab__box">
+    <a-tabs defaultActiveKey="2" :size="'large'" class="tab__box">
       <a-tab-pane key="1">
           <span slot="tab">
             <a-icon type="edit" />Story
           </span>
+
         <div class="story__box">
           <div class="story__text">
-            <a-textarea placeholder="Enter user story" :rows="4"/>
-            <a-button class="poker__btn"
-            >Start
-              <a-icon type="caret-right" />
+            <a-textarea v-model="userStory" placeholder="Enter user story" :rows="4"/>
+            <a-button class="poker__btn">
+              Start
+              <a-icon type="caret-right"/>
             </a-button>
           </div>
         </div>
@@ -23,6 +24,8 @@
           <a-icon type="appstore"/>Cards
         </span>
 
+        <UserStory v-bind:userStory="userStory"></UserStory>
+
         <CardList></CardList>
 
       </a-tab-pane>
@@ -32,22 +35,37 @@
           <a-icon type="profile"/>Result
         </span>
 
-        <a-table :columns="columns"
-                 :dataSource="data"
-                 :pagination="false"
-                 bordered
+        <UserStory v-bind:userStory="userStory"></UserStory>
 
-        ></a-table>
+        <div class="poker__table">
+          <div class="poker__table-box">
+            <a-table :columns="columns"
+                     :dataSource="data"
+                     :pagination="false"
+                     bordered
+            ></a-table>
+          </div>
+        </div>
 
+        <pure-vue-chart onchange="this.updateDiagram()" class="poker__diagram"
+                        :points="diagramValues"
+                        :show-y-axis="false"
+                        :show-x-axis="true"
+                        :width="300"
+                        :height="100"
+                        :show-values="true"
+        />
+        <a-button class="poker__btn" @click="startNewVote">Start new</a-button>
       </a-tab-pane>
     </a-tabs>
-    <button @click="startNewVote">Start new</button>
   </div>
 </template>
 
 <script>
   import Logo from "../components/Logo";
   import CardList from "../components/cards/CardList";
+  import PureVueChart from 'pure-vue-chart';
+  import UserStory from "../components/UserStory";
 
   const columns = [{
     title: 'Name',
@@ -65,13 +83,26 @@ export default {
   name: "Poker",
   components: {
     Logo,
-    CardList
+    CardList,
+    UserStory,
+    PureVueChart,
   },
   data() {
     return {
       data,
       columns,
+      diagramValues:
+        [{label: '1', value: 4},
+          {label: '2', value: 7},
+          {label: '3', value: 5},
+          {label: '5', value: 4},
+          {label: '8', value: 6},
+          {label: '13', value: 10},
+          {label: '21', value: 4},
+          {label: '34', value: 7},
+          {label: '55', value: 2}],
       token: this.$route.params.id,
+      userStory: null,
     };
   },
   sockets: {
@@ -94,6 +125,17 @@ export default {
   methods: {
     generateToken() {
       this.$socket.emit("requestToken");
+    },
+    updateDiagram() {
+      this.diagramValues = [{label: '1', value: 4},
+        {label: '2', value: 7},
+        {label: '3', value: 5},
+        {label: '5', value: 4},
+        {label: '8', value: 6},
+        {label: '13', value: 10},
+        {label: '21', value: 4},
+        {label: '34', value: 7},
+        {label: '55', value: 2}]
     },
     startNewVote() {
       this.$socket.emit('onRestartVoting', {
@@ -125,6 +167,10 @@ export default {
     margin-top: 1rem;
   }
 
+  .poker__diagram{
+    margin-top: 4rem;
+  }
+
   @media only screen and (min-device-width: 360px){
     .story__text{
       min-width: 20rem;
@@ -134,6 +180,32 @@ export default {
   @media only screen and (min-device-width: 700px){
     .story__text{
       min-width: 40rem;
+    }
+
+    .poker__table{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .poker__table-box{
+      min-width: 30rem;
+    }
+
+    .poker__diagram{
+      zoom: 150%;
+    }
+  }
+
+  @media only screen and (min-device-width: 1000px){
+    .poker__table-box{
+      min-width: 40rem;
+    }
+  }
+
+  @media only screen and (min-device-width: 1500px){
+    .poker__table-box{
+      min-width: 50rem;
     }
   }
 </style>
