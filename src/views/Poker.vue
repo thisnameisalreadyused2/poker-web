@@ -47,15 +47,21 @@
           </div>
         </div>
 
-        <pure-vue-chart onchange="this.updateDiagram()" class="poker__diagram"
-                        :points="diagramValues"
-                        :show-y-axis="false"
-                        :show-x-axis="true"
-                        :width="300"
-                        :height="100"
-                        :show-values="true"
-        />
-        <a-button class="poker__btn" @click="startNewVote">Start new</a-button>
+        <div>
+          <pure-vue-chart v-if="diagramValues.length !== 0" class="poker__diagram"
+                          :points="diagramValues"
+                          :show-y-axis="false"
+                          :show-x-axis="true"
+                          :width="300"
+                          :height="100"
+                          :show-values="true"
+          />
+        </div>
+
+        <a-button class="poker__btn" @click="startNewVote">
+          Start new
+          <a-icon type="reload"/>
+        </a-button>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -91,16 +97,7 @@ export default {
     return {
       data,
       columns,
-      diagramValues:
-        [{label: '1', value: 4},
-          {label: '2', value: 7},
-          {label: '3', value: 5},
-          {label: '5', value: 4},
-          {label: '8', value: 6},
-          {label: '13', value: 10},
-          {label: '21', value: 4},
-          {label: '34', value: 7},
-          {label: '55', value: 2}],
+      diagramValues: [],
       token: this.$route.params.id,
       userStory: null,
     };
@@ -117,6 +114,7 @@ export default {
     },
     voteEnded(data) {
       this.data = data;
+      this.countDiagramData(this.data);
     },
     restartVoting() {
       this.data = [];
@@ -126,21 +124,53 @@ export default {
     generateToken() {
       this.$socket.emit("requestToken");
     },
-    updateDiagram() {
-      this.diagramValues = [{label: '1', value: 4},
-        {label: '2', value: 7},
-        {label: '3', value: 5},
-        {label: '5', value: 4},
-        {label: '8', value: 6},
-        {label: '13', value: 10},
-        {label: '21', value: 4},
-        {label: '34', value: 7},
-        {label: '55', value: 2}]
+    countDiagramData(arrayNew) {
+      let allValues = [];
+      let result = [
+        {label: '1', value: 0},
+        {label: '2', value: 0},
+        {label: '3', value: 0},
+        {label: '5', value: 0},
+        {label: '8', value: 0},
+        {label: '13', value: 0},
+        {label: '21', value: 0},
+        {label: '34', value: 0},
+        {label: '55', value: 0},];
+
+      for (let d in arrayNew) {
+        allValues.push(arrayNew[d].points);
+      }
+      console.log(allValues);
+
+      for (let i = 0; i < allValues.length; i++) {
+        if (allValues[i] === 1) {
+          result[0].value++;
+        } else if (allValues[i] === 2) {
+          result[1].value++;
+        } else if (allValues[i] === 3) {
+          result[2].value++;
+        } else if (allValues[i] === 5) {
+          result[3].value++;
+        } else if (allValues[i] === 8) {
+          result[4].value++;
+        } else if (allValues[i] === 13) {
+          result[5].value++;
+        } else if (allValues[i] === 21) {
+          result[6].value++;
+        } else if (allValues[i] === 34) {
+          result[7].value++;
+        } else {
+          result[8].value++;
+        }
+      }
+      console.log(result);
+      this.diagramValues = result;
     },
     startNewVote() {
       this.$socket.emit('onRestartVoting', {
         token: this.token
       });
+      this.diagramValues = [];
     },
     addOrReplace(item) {
       const i = this.data.findIndex(_item => _item.id === item.id);
