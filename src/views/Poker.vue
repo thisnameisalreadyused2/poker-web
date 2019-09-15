@@ -7,12 +7,13 @@
           <span slot="tab">
             <a-icon type="edit" />Story
           </span>
+
         <div class="story__box">
           <div class="story__text">
-            <a-textarea placeholder="Enter user story" :rows="4"/>
-            <a-button class="poker__btn"
-            >Start
-              <a-icon type="caret-right" />
+            <a-textarea v-model="userStory" placeholder="Enter user story" :rows="4"/>
+            <a-button class="poker__btn">
+              Start
+              <a-icon type="caret-right"/>
             </a-button>
           </div>
         </div>
@@ -23,7 +24,7 @@
           <a-icon type="appstore"/>Cards
         </span>
 
-        <UserStory></UserStory>
+        <UserStory v-bind:userStory="userStory"></UserStory>
 
         <CardList></CardList>
 
@@ -34,7 +35,7 @@
           <a-icon type="profile"/>Result
         </span>
 
-        <UserStory></UserStory>
+        <UserStory v-bind:userStory="userStory"></UserStory>
 
         <div class="poker__table">
           <div class="poker__table-box">
@@ -46,22 +47,15 @@
           </div>
         </div>
 
-        <pure-vue-chart class="poker__diagram"
-            :points="[{label: '1', value: 4},
-                      {label: '2', value: 7},
-                      {label: '3', value: 5},
-                      {label: '5', value: 4},
-                      {label: '8', value: 6},
-                      {label: '13', value: 10},
-                      {label: '21', value: 4},
-                      {label: '34', value: 7},
-                      {label: '55', value: 2}]"
-            :show-y-axis="false"
-            :show-x-axis="true"
-            :width="300"
-            :height="100"
-            :show-values="true"
+        <pure-vue-chart onchange="this.updateDiagram()" class="poker__diagram"
+                        :points="diagramValues"
+                        :show-y-axis="false"
+                        :show-x-axis="true"
+                        :width="300"
+                        :height="100"
+                        :show-values="true"
         />
+
       </a-tab-pane>
     </a-tabs>
 
@@ -106,7 +100,18 @@ export default {
     return {
       data,
       columns,
+      diagramValues:
+        [{label: '1', value: 4},
+          {label: '2', value: 7},
+          {label: '3', value: 5},
+          {label: '5', value: 4},
+          {label: '8', value: 6},
+          {label: '13', value: 10},
+          {label: '21', value: 4},
+          {label: '34', value: 7},
+          {label: '55', value: 2}],
       token: this.$route.params.id,
+      userStory: null,
     };
   },
   sockets: {
@@ -123,6 +128,17 @@ export default {
   methods: {
     generateToken() {
       this.$socket.emit("requestToken");
+    },
+    updateDiagram() {
+      this.diagramValues = [{label: '1', value: 4},
+        {label: '2', value: 7},
+        {label: '3', value: 5},
+        {label: '5', value: 4},
+        {label: '8', value: 6},
+        {label: '13', value: 10},
+        {label: '21', value: 4},
+        {label: '34', value: 7},
+        {label: '55', value: 2}]
     }
   },
 };
