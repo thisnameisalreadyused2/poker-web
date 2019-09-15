@@ -11,7 +11,7 @@
         <div class="story__box">
           <div class="story__text">
             <a-textarea v-model="userStory" placeholder="Enter user story" :rows="4"/>
-            <a-button class="poker__btn">
+            <a-button class="poker__btn" @click="changeUserStory">
               Start
               <a-icon type="caret-right"/>
             </a-button>
@@ -112,6 +112,9 @@ export default {
         username: sessionStorage.getItem("username")
       })
     },
+    disconnect: function() {
+      this.data = [];
+    },
     needRegister() {
       this.$router.push('/registration/' + this.token);
     },
@@ -147,6 +150,12 @@ export default {
       if (i > -1) {
         this.data = this.data.filter(user => user.id !== item.id);
       } else this.data.push(item);
+    },
+    changeUserStory() {
+      this.$socket.emit('changeUserStory', {
+        userStory: this.userStory,
+        token: this.token,
+      });
     }
   },
 };

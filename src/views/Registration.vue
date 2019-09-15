@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     saveUserName() {
-      console.log(this.username);
       sessionStorage.setItem("username", this.username);
       this.$router.push('/poker/' + this.token);
       this.$socket.emit("newTeamMember", {

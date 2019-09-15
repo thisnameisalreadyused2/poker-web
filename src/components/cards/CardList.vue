@@ -30,6 +30,9 @@
       restartVoting() {
         this.selectedNumber = null;
       },
+      disconnect: function() {
+        this.selectedNumber = null;
+      }
     },
     methods: {
       selectCard(number) {

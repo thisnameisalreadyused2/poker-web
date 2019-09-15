@@ -21,11 +21,6 @@ export default new Router({
       component: Registration
     },
     {
-      path: "/poker",
-      name: "poker",
-      component: Index
-    },
-    {
       path: "/poker/:id",
       name: "poker",
       component: Poker
